@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+
+<template id="child01">
+  <div>
+    child01--message01:{{message01}}
+    <p><slot><span>ディフォルト</span></slot></p>
+  </div>
+</template>
+
+<div id="app01">
+  <child01 ref="child01"></child01>
+  <hr>
+  <button @click="showchildmessage">father show child</button>
+  <hr>
+  <child01 ref="child02"><span>設定しなおし</span></child01>
+
+</div>
+<script src="../js/vue.js"></script>
+<script>
+  const app01 = new Vue({
+    el: '#app01',
+    data: {
+      message: 'good man!!'
+    },
+    methods: {
+      showchildmessage() {
+        console.log(this.$children)
+        this.$children[0].showmessage()
+
+        console.log(this.$refs.child01)
+
+
+      }
+    },
+    components: {
+      child01: {
+        template: '#child01',
+        data() {
+          return {
+            message01: 'i am child'
+          }
+        },
+        methods: {
+          showmessage() {
+            console.log(this.message01)
+          }
+        }
+      }
+    }
+  })
+</script>
+
+
+</body>
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script src="../js/vue.js"></script>
+<div id="appList">
+    {{message}}
+    <ul>
+        <li v-for="item in movies">{{item}}</li>
+
+    </ul>
+</div>
+
+<script>
+    const applist = new Vue({
+        el:'#appList',
+        data:{
+            message:'hello',
+            movies:['日本語？？','表示できるかな','!!!!']
+        }
+    })
+
+</script>
+
+</body>
+</html>

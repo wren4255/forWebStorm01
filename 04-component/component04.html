@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+
+
+<div id="fa-son">
+
+  <p>message_root:{{message_root}}</p>
+  <p>message_from_son:{{message_from_son}}</p>
+  <hr>
+<!--  <p>message_root:{{message_root}}</p>-->
+  <son_t :message_from_root="message_to_son" @regist_message_to_root="change_message_from_son"></son_t>
+
+</div>
+
+<template id="son">
+  <div>
+    <p>message_son:{{message_son}}</p>
+    <p>message_from_root:{{message_from_root}}</p>
+    <input type="text" v-model="message_to_root">
+  </div>
+</template>
+
+<script src="../js/vue.js"></script>
+<script>
+  const son_t = {
+    template:'#son',
+    props:{
+      message_from_root:String
+    },
+    data(){
+      return{
+        message_son:'i am son',
+        message_to_root:''
+      }
+    },
+    watch:{
+      message_to_root(newValue,oldValue){
+        console.log('newValue:'+newValue+'------oldValue:'+oldValue)
+        this.$emit('regist_message_to_root',newValue)
+      }
+    }
+  }
+
+  const app01 = new Vue({
+    el:'#fa-son',
+    data:{
+      message_root:'i am root',
+      message_from_son:'',
+      message_to_son:'root to son'
+    },
+    components:{
+      son_t
+    },
+    methods:{
+      change_message_from_son(newValue){
+        this.message_from_son=newValue
+      }
+    }
+  })
+</script>
+
+
+</body>
+</html>

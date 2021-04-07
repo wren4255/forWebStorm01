@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+
+<div id="app">
+  <!--此处的template标签中的内容显示并且在dom中不存在template标签-->
+  <template id="te2m">
+    <div>我是template1</div>
+  </template>
+</div>
+<!--此处的template标签中的内容在页面中不显示，但是在dom结构存在该标签及内部结构-->
+<template id="tem">
+  <div id="div1">我是template3</div>
+  <div>我是template2</div>
+</template>
+<script src="../js/vue.js"></script>
+<script>
+  let vm = new Vue({
+    el: "#app",
+  });
+</script>
+</body>
+</html>

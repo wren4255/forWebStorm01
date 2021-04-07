@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+
+</head>
+<body>
+<script src="aaa.js"></script>
+<script src="bbb.js"></script>
+<script src="../js/vue.js"></script>
+
+<div id="app01">
+  {{message}}
+  <button @click="printInfoA">aaa</button>
+  <button @click="printInfo">bbb</button>
+
+</div>
+
+<script>
+  const app01 = new Vue({
+    el:'#app01',
+    data:{
+      message:'good man!!'
+    },
+    methods:{
+      printInfoa: printInfoA,
+      printInfo
+    }
+  })
+</script>
+</body>
+</html>

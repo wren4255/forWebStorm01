@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" type="text/css" href="../css/main.css">
+  <title>Title</title>
+</head>
+<body>
+
+<script src="../js/vue.js"></script>
+<div id="app01">
+
+  <template id="father01">
+    <div style="border: brown 2px solid">
+      ----template-----father01:
+      <table>
+        <tr>
+          <td>father01_root</td>
+          <td>{{father01_root}}</td>
+        </tr>
+        <tr>
+          <td>father01_father</td>
+          <td>{{father01_father}}</td>
+        </tr>
+        <tr>
+          <td>father01_son</td>
+          <td>{{father01_son}}</td>
+        </tr>
+      </table>
+      <hr>
+<!--      <son01></son01>-->
+    </div>
+  </template>
+<father01></father01>
+<!--  <template id="son01">-->
+<!--    <div style="border: blue 2px solid">-->
+<!--      &#45;&#45;&#45;&#45;template-&#45;&#45;&#45;&#45;son01:-->
+<!--      <table>-->
+<!--        <tr>-->
+<!--          <td>son01_root</td>-->
+<!--          <td>{{son01_root}}</td>-->
+<!--        </tr>-->
+<!--        <tr>-->
+<!--          <td>son01_father</td>-->
+<!--          <td>{{son01_father}}</td>-->
+<!--        </tr>-->
+<!--        <tr>-->
+<!--          <td>son01_root</td>-->
+<!--          <td>{{son01_root}}</td>-->
+<!--        </tr>-->
+<!--      </table>-->
+<!--    </div>-->
+<!--  </template>-->
+
+</div>
+<script>
+
+  const son01={
+    template:'#son01',
+    data(){
+      return {
+        son01_root:'son01_root',
+        son01_father:'son01_father',
+        son01_son:'son01_son'
+      }
+    }
+  }
+
+  const father01 = {
+    template:'#father01',
+    data(){
+      return {
+        father01_root:'father01_root',
+        father01_father:'father01_father',
+        father01_son:'father01_son'
+      }
+    }
+  }
+
+  const app01 = new Vue({
+    el:'#app01',
+    data:{
+      app01_root:'app01_root',
+      app01_father:'app01_father',
+      app01_son:'app01_son'
+    },
+    components:{
+      father01
+    }
+  })
+</script>
+</body>
+</html>

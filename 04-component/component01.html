@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" type="text/css" href="../css/main.css">
+  <script src="../js/vue.js"></script>
+  <title>Title</title>
+</head>
+<body>
+
+<template id="father01">
+  <div style="border: brown 3px solid">
+    ----template-----father01:
+    <table>
+      <tr>
+        <td>father01_root</td>
+        <td>{{father01_root}}</td>
+        <td>
+          <label>father01_root
+            <input type="text" v-model="father01_root">
+          </label>
+        </td>
+      </tr>
+      <tr>
+        <td>father01_father --father01_father_fromroot</td>
+        <td>{{father01_father}}--{{father01_father_fromroot}}</td>
+        <td>
+          <label>father01_father
+            <input type="text" v-model="father01_father">
+          </label>
+        </td>
+      </tr>
+      <tr>
+        <td>father01_son</td>
+        <td>{{father01_son}}</td>
+        <td>
+          <label>father01_son
+            <input type="text" v-model="father01_son">
+          </label>
+        </td>
+      </tr>
+    </table>
+    <hr>
+    <son01 :son01_son_fromfather="father01_son" @change_son01_son="change_father01_son"></son01>
+  </div>
+</template>
+
+<template id="son01">
+  <div style="border: blue 1px solid">
+    ----template-----son01:
+    <table>
+      <tr>
+        <td>son01_root -- son01_root_fromfather</td>
+        <td>{{son01_root}} -- {{son01_root_fromfather}}</td>
+        <td>
+          <label>son01_root
+            <input type="text" v-model="son01_root" >
+          </label>
+        </td>
+      </tr>
+      <tr>
+        <td>son01_father -- son01_father_fromfather</td>
+        <td>{{son01_father}} -- {{son01_father_fromfather}}</td>
+        <td>
+          <label>son01_father
+            <input type="text" v-model="son01_father">
+          </label>
+        </td>
+      </tr>
+      <tr>
+        <td>son01_son -- son01_son_fromfather</td>
+        <td>{{son01_son}} -- {{son01_son_fromfather}}</td>
+        <td>
+          <label>son01_son
+            <input type="text" v-model="son01_son" @input="change_son01_son">
+          </label>
+        </td>
+      </tr>
+    </table>
+  </div>
+</template>
+
+
+<div id="app01">
+  <father01 :father01_father_fromroot="app01_father"></father01>
+  <p></p>
+  <div style="border: blueviolet 2px solid">
+    ------root:
+    <table>
+      <tr>
+        <td>app01_root</td>
+        <td>{{app01_root}}</td>
+        <td>
+          <label>app01_root
+            <input type="text" v-model="app01_root">
+          </label>
+        </td>
+      </tr>
+      <tr>
+        <td>app01_father</td>
+        <td>{{app01_father}}</td>
+        <td>
+          <label>app01_father
+            <input type="text" v-model="app01_father">
+          </label>
+        </td>
+      </tr>
+      <tr>
+        <td>app01_son</td>
+        <td>{{app01_son}}</td>
+        <td>
+          <label>app01_son
+            <input type="text" v-model="app01_son">
+          </label>
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>
+<script>
+
+  const son01={
+    template:'#son01',
+    data(){
+      return {
+        son01_root:'son01_root',
+        son01_father:'son01_father',
+        son01_son:'son01_son'
+      }
+    },
+    // props:['son01_son_fromfather']
+    props:{
+      son01_root_fromfather:{
+        type:String,
+        default:'dddddddddddddddd'
+      },
+      son01_father_fromfather:{
+        default:'dddddddddddddddd'
+      },
+      son01_son_fromfather:{
+        required:false
+      }
+    },
+    methods:{
+      change_son01_son(){
+        console.log('change_son01_son ---' + this.son01_son)
+        this.$emit('change_son01_son',this.son01_son)
+      }
+    }
+  }
+
+  const father01 = {
+    template:'#father01',
+    data(){
+      return {
+        father01_root:'father01_root',
+        father01_father:'father01_father',
+        father01_son:'father01_son'
+      }
+    },
+    props:['father01_father_fromroot'],
+    components:{
+      son01
+    },
+    methods:{
+      change_father01_son(data){
+        console.log('change_father01_son ---' + data)
+        this.father01_son = data
+      }
+    }
+  }
+
+  const app01 = new Vue({
+    el:'#app01',
+    data:{
+      app01_root:'app01_root',
+      app01_father:'app01_father',
+      app01_son:'app01_son'
+    },
+    components:{
+      father01
+    }
+  })
+</script>
+</body>
+</html>

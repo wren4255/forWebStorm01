@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script src = "../js/vue.js"></script>
+<div id="app">
+    <h2>今：{{count}}</h2>
+
+<button v-on:click="addCount()">+</button>
+<button @click="deleteCount()">-</button>
+</div>
+<script>
+    const app = new Vue({
+    el:"#app",
+    data:{
+        count:0
+    },
+    methods:{
+       addCount:function(){
+           this.count++;
+           console.log("add実行");
+       },
+       deleteCount:function (){
+           this.count--;
+           console.log("delete実行");
+       }
+    },
+    created:function(){
+           console.log("created!!");
+    }
+    })
+</script>
+</body>
+</html>

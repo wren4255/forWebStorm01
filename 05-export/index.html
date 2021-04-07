@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+
+</head>
+<body>
+<script src="aaa.js" type="module"></script>
+<script src="bbb.js" type="module"></script>
+<script src="../js/vue.js"></script>
+
+<div id="app01">
+  {{message}}
+  <button @click="printInfoA">aaa</button>
+  <button @click="printInfoB">bbb</button>
+
+</div>
+
+<script>
+
+  // import {printInfoA} from './aaa.js'
+  // import {printInfoB} from './bbb.js'
+  printInfoA()
+
+  const app01 = new Vue({
+    el:'#app01',
+    data:{
+      message:'good man!!'
+    },
+    methods:{
+      printInfoA,
+      printInfoB
+    }
+  })
+</script>
+</body>
+</html>

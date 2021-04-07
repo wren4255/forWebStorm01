@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <style>
+    .red{
+      color:mediumvioletred;
+    }
+    .blue{
+      color:blue;
+    }
+    .borderTxt{
+      border:1px dashed cyan;
+    }
+  </style>
+</head>
+<body>
+
+<div id="app01">
+  {{age | showNumber}}
+  <hr>
+  <span v-show="isUseName">{{age}}</span>
+  <span v-if="isUseName">
+    <label for="useName" >ユーザ：</label>
+    <input type="text" id="useName" placeholder="ユーザ名" key="useName">
+  </span>
+  <span v-else>
+    <label for="email" >メアド：</label>
+    <input type="text" id="email" placeholder="メアド" key="email">
+  </span>
+  <button @click="isUseName=!isUseName">変更</button>
+  <hr>
+  <form action="http://www.baidu.com" @submit.prevent>
+    <span v-if="isShow">1-{{ttt}}</span>
+    <span v-if="!isShow">2-{{ttt}}</span>
+    <span>{{age}}</span>
+    <button type="submit" @click="incrementNumber(4)">submit</button>
+  </form>
+  <hr>
+
+  <label>111
+    <input type="text" @keyup.enter.once="keyupEnter" @keyup="keyupChange" :value="keyupTxt">
+  </label>
+
+  <span>{{keyupTxt}} -- {{keyupEnterTxt}}</span>
+  <hr>
+
+  <span @click="incrementNumber(2,$event,$el)">
+    {{numberT}}
+<!--    //停止冒泡-->
+    <button @click.stop="incrementNumber(3)">good</button>
+  </span>
+  <h1 v-bind:class="getColorClass()">{{message + 'my name is ' + name}} {{fullName}}</h1>
+  <button @click="changeColor">change</button>
+  <div :class="[borderTxt,red]"><h3>{{sayHi('mali')}}</h3></div>
+  <h4 v-once>{{message}}</h4>
+  <span v-html = "html01"></span>
+  <span v-text="html01">11</span>
+  <h4 v-pre>{{message}}</h4>
+  <a :href="baiduUrl">baidu<img v-bind:src="imageBaiduUrl" alt=""></a>
+  <h2 :style="{fontSize:'50px'}">wren4255</h2>
+<div style="display: flex">
+  <table style="border: brown 1px solid">
+    <tr v-for="(item, number) in languageArray">
+      <td :class="borderTxt" >   <!--@click="changeTdColor(number)"-->
+        {{number}} - {{item}}
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <button @click="changeArray">changeArray</button>
+      </td>
+    </tr>
+  </table>
+  <table style="border: blue double 2px">
+    <tr v-for="(value, key) in languageList1" :key="key">
+      <td :class="borderTxt" >   <!--@click="changeTdColor(number)"-->
+        {{value}} - {{key}}
+      </td>
+    </tr>
+  </table>
+</div>
+</div>
+<script src="../js/vue.js"></script>
+<script>
+  const ttt = "字面量"
+  const numberT = 0
+  let isShow = true
+  let isUseName=true
+  //字面量
+  const person = {
+    isUseName: isUseName,
+    isShow,
+    keyupTxt:'',
+    keyupEnterTxt:'',
+    numberT,
+    ttt,
+    name:'jyo',
+    age:37,
+    message:'hello everyone!!',
+    sayHi (name){
+      return 'hi ' + name + '  ' + 'my name is ' + person.name;
+    },
+    html01:'<a href="#">baidu</a>',
+    imageBaiduUrl:'https://www.baidu.com/img/flexible/logo/pc/result.png',
+    baiduUrl:"http://www.baidu.com",
+    red:'red',
+    isRed:false,
+    isBlue:true,
+    borderTxt:'borderTxt',
+    languageArray:['日本語','中国語','ベトナム語','ベトナム語2'],
+    languageArray1:['日本語1','中国語1','ベトナム語1','ベトナム語21'],
+    languageList1: {ja:'日本語ja',cn:'中国語cn',bt:'ベトナム語bt'},
+    firstName:'peng',
+    lastName:'xu'
+
+  }
+  const app01 = new Vue({
+    el:'#app01',
+    data:person,
+    methods:{
+      changeColor(){
+        const colorFlag = this.isRed;
+        this.isRed= !colorFlag;
+        this.isBlue = colorFlag;
+      },
+      getColorClass:function(){
+        return {'red': this.isRed,'blue': this.isBlue}
+      },
+      incrementNumber(index,event,el){
+        this.numberT = this.numberT + index
+        console.log(event)
+        console.log(el)
+
+      },
+      keyupEnter(){
+        this.keyupEnterTxt = this.keyupTxt
+      },
+      keyupChange(e){
+        this.keyupTxt = e.target.value
+        console.log(e)
+      },
+      changeArray(){
+        // this.languageArray.splice(1,1,'イタリア語',this.languageArray)
+        this.languageArray.splice(1,1,this.languageArray1[2])
+        this.languageArray.reverse()
+      }
+    },
+    //計算属性
+    computed:{
+      fullName:function(){
+        return this. lastName+ ' ' + this.firstName
+      }
+    },
+    filters:{
+      showNumber(number){
+        return '$' + number.toFixed(2)
+      }
+    }
+  })
+
+</script>
+
+
+</body>
+</html>
